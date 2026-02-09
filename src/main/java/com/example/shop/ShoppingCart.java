@@ -23,4 +23,12 @@ public class ShoppingCart {
         cartItems.remove(cartItem);
         return true;
     }
+    public Double getTotalPrice() {
+        Double result = 0.0;
+
+        for (CartItem cartItem : cartItems) {
+            result += cartItem.price * cartItem.quantity;
+        }
+        return result;
+    }
 }

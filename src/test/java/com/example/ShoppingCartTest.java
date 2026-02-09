@@ -35,7 +35,8 @@ public class ShoppingCartTest {
     private final String testItemId = "testItemId";
     private final String testItemName = "testItemName";
     private final String testItem = "testItem1";
-    private final int itemQuantity = 0;
+    private final int testItemPrice = 0;
+    private final int testItemQuantity = 0;
     private final String cartId = "cart1";
     private final String shoppingId = "shopping1";
     private final Double discount = 0.0;
@@ -47,8 +48,8 @@ public class ShoppingCartTest {
     }
 
     @Nested
-    @DisplayName("addItem() Tests")
-    class AddItemTests {
+    @DisplayName("handleItem() Tests")
+    class HandleItemsTests {
 
         @Test
         @DisplayName("Should succeed for available cart")
@@ -60,10 +61,28 @@ public class ShoppingCartTest {
          @Test
          @DisplayName("Should successfully add items")
          void shouldSuccessfullyAddItems() {
-            CartItem test = new CartItem(testItemId, testItemName);
+            CartItem test = new CartItem(testItemId, testItemName, testItemPrice, testItemQuantity);
 
             boolean result = shoppingCartImpl.addItem(test);
             assertThat(result).isTrue();
+         }
+
+         @Test
+         @DisplayName("Should successfully remove items")
+         void shouldSuccessfullyRemoveItems() {
+            CartItem test = new CartItem(testItemId, testItemName, testItemPrice, testItemQuantity);
+            boolean result = shoppingCartImpl.removeItem(test);
+            assertThat(result).isTrue();
+         }
+
+         @Test
+        @DisplayName("Should display total price")
+        void shouldDisplayTotalPrice() {
+            ShoppingCart testCart = new ShoppingCart(cartId, "Test cart");
+            CartItem test = new CartItem(testItemId, testItemName, testItemPrice, testItemQuantity);
+            testCart.addItem(test);
+            Double result = testCart.getTotalPrice();
+            assertThat(result).isEqualTo(test.price * test.quantity);
          }
     }
 
