@@ -94,6 +94,17 @@ public class ShoppingCartTest {
             Double result = testCart.getDiscountedPrice(discount);
             assertThat(result).isEqualTo(test.price * test.quantity * discount);
          }
+
+         @Test
+        @DisplayName("Should apply quantity changes")
+        void shouldApplyQuantityChanges() {
+            ShoppingCart testCart = new ShoppingCart(cartId, "Test cart");
+            CartItem test = new CartItem(testItemId, testItemName, testItemPrice, testItemQuantity);
+            testCart.addItem(test);
+            testCart.updateQuantity(test, 5);
+            int result = testCart.checkQuantity(test);
+            assertThat(result).isEqualTo(5);
+         }
     }
 
 

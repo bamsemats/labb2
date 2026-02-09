@@ -39,4 +39,25 @@ public class ShoppingCart {
         }
         return result * discount;
     }
+
+
+    public void updateQuantity(CartItem item, int i) {
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getId().equals(item.getId()) && cartItem.quantity == i) {
+                return;
+            } else if (cartItem.getId().equals(item.getId())) {
+                item.setQuantity(i);
+            }
+        }
+    }
+
+    public int checkQuantity(CartItem item) {
+        int result = 0;
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getId().equals(item.getId())) {
+                result = cartItem.quantity;
+            }
+        }
+        return result;
+    }
 }
