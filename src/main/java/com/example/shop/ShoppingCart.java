@@ -13,15 +13,26 @@ public class ShoppingCart {
         this.cartName = cartName;
     }
     public Boolean findById(String id) {
+        if (cartID.equals(null) || !cartID.equals(id)) {
+            throw new IllegalArgumentException("Invalid cart ID");
+        }
         return id.equals(cartID);
     }
     public boolean addItem(CartItem cartItem) {
-        cartItems.add(cartItem);
-        return true;
+        if (cartItem.getId() == null || cartItem.getName() == null || cartItem.getPrice() < 0 || cartItem.getQuantity() < 0) {
+            throw new IllegalArgumentException("Invalid input");
+        } else {
+            cartItems.add(cartItem);
+            return true;
+        }
     }
     public boolean removeItem(CartItem cartItem) {
-        cartItems.remove(cartItem);
-        return true;
+        if (!cartItems.contains(cartItem)) {
+            throw new IllegalArgumentException("Item does not exist");
+        } else {
+            cartItems.remove(cartItem);
+            return true;
+        }
     }
     public Double getTotalPrice() {
         Double result = 0.0;
@@ -42,6 +53,9 @@ public class ShoppingCart {
 
 
     public void updateQuantity(CartItem item, int i) {
+        if (i < 0) {
+            throw new IllegalArgumentException("Invalid input");
+        }
         for (CartItem cartItem : cartItems) {
             if (cartItem.getId().equals(item.getId()) && cartItem.quantity == i) {
                 return;
