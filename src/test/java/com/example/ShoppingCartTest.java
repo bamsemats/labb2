@@ -84,6 +84,16 @@ public class ShoppingCartTest {
             Double result = testCart.getTotalPrice();
             assertThat(result).isEqualTo(test.price * test.quantity);
          }
+
+         @Test
+        @DisplayName("Should display total price with discount")
+        void shouldDisplayTotalPriceWithDiscount() {
+            ShoppingCart testCart = new ShoppingCart(cartId, "Test cart");
+            CartItem test = new CartItem(testItemId, testItemName, testItemPrice, testItemQuantity);
+            testCart.addItem(test);
+            Double result = testCart.getDiscountedPrice(discount);
+            assertThat(result).isEqualTo(test.price * test.quantity * discount);
+         }
     }
 
 

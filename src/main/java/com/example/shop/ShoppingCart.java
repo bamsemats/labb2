@@ -31,4 +31,12 @@ public class ShoppingCart {
         }
         return result;
     }
+    public Double getDiscountedPrice(Double discount) {
+        Double result = 0.0;
+
+        for (CartItem cartItem : cartItems) {
+            result += cartItem.price * cartItem.quantity;
+        }
+        return result * discount;
+    }
 }
